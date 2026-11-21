@@ -14,6 +14,7 @@ import { StoryArtwork } from '../components/art/StoryArtwork';
 import { GoldDustCanvas } from '../components/fx/GoldDustCanvas';
 import { TiltCard } from '../components/fx/TiltCard';
 import { GoldScratchCard } from '../components/fx/GoldScratchCard';
+import { Side3DPortraits } from '../components/fx/Side3DPortraits';
 import { useInView } from '../hooks/useInView';
 import { useCountdown } from '../hooks/useCountdown';
 import { downloadCalendarInvite } from '../utils/calendar';
@@ -67,19 +68,13 @@ export function HomePage({ onNavigate, onOpenRsvp, onShowToast }) {
         <LuminousArchHeroArt mouseOffset={mouseOffset} />
         <GoldDustCanvas intensity={0.85} />
 
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          {/* Eyebrow Pill */}
-          <div className="mb-5 inline-flex items-center justify-center gap-3">
-            <span className="h-px w-8 bg-[#B89B72]/70 sm:w-12" />
-            <span className="font-sans text-[11px] font-medium uppercase tracking-[0.34em] text-[#8C7043] sm:text-xs">
-              Save The Date
-            </span>
-            <span className="h-px w-8 bg-[#B89B72]/70 sm:w-12" />
-          </div>
+        {/* 3D Animated Flanking Celebrity Loved Portraits */}
+        <Side3DPortraits mouseOffset={mouseOffset} />
 
+        <div className="relative z-20 mx-auto max-w-2xl px-4 text-center">
           {/* Couple Display Name */}
           <h1
-            className="font-serif text-5xl font-light tracking-[0.06em] text-[#1F1D1B] sm:text-7xl md:text-[5.25rem]"
+            className="font-serif text-5xl font-light tracking-[0.06em] text-[#1F1D1B] sm:text-7xl md:text-[5.5rem] drop-shadow-sm"
             style={{ lineHeight: 1.05 }}
           >
             {WEDDING_CONFIG.couple.groom}
@@ -89,43 +84,9 @@ export function HomePage({ onNavigate, onOpenRsvp, onShowToast }) {
             {WEDDING_CONFIG.couple.bride}
           </h1>
 
-          <p className="mt-3 font-serif text-lg italic tracking-wide text-[#5B5248] sm:text-2xl">
+          <p className="mt-4 font-serif text-lg italic tracking-wide text-[#5B5248] sm:text-2xl drop-shadow-sm">
             {WEDDING_CONFIG.couple.tagline}
           </p>
-
-          {/* Date & Location Pill */}
-          <div className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-full border border-[#B89B72]/40 bg-[#FAF8F5]/80 px-6 py-2.5 shadow-sm backdrop-blur-md">
-            <span className="inline-flex items-center gap-1.5 font-sans text-xs font-medium uppercase tracking-[0.2em] text-[#1F1D1B]">
-              <Calendar className="h-3.5 w-3.5 text-[#B89B72]" />
-              {WEDDING_CONFIG.date.display}
-            </span>
-            <span className="hidden h-3 w-px bg-[#B89B72]/45 sm:inline-block" />
-            <span className="inline-flex items-center gap-1.5 font-sans text-xs font-medium uppercase tracking-[0.2em] text-[#1F1D1B]">
-              <MapPin className="h-3.5 w-3.5 text-[#B89B72]" />
-              {WEDDING_CONFIG.venue.city} &bull; {WEDDING_CONFIG.venue.country}
-            </span>
-          </div>
-
-          {/* Primary Action Buttons */}
-          <div className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
-            <button
-              type="button"
-              onClick={onOpenRsvp}
-              className="group inline-flex min-w-[200px] items-center justify-center gap-2.5 rounded-full bg-[#6E7B68] px-8 py-4 font-sans text-xs font-medium uppercase tracking-[0.25em] text-white shadow-[0_14px_30px_rgba(110,123,104,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#5B6856]"
-            >
-              RSVP Now
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </button>
-
-            <button
-              type="button"
-              onClick={handleDownloadCalendar}
-              className="inline-flex min-w-[200px] items-center justify-center gap-2 rounded-full border border-[#B89B72]/60 bg-[#FAF8F5]/85 px-7 py-4 font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#6E5736] backdrop-blur-sm transition-all hover:border-[#B89B72] hover:bg-white"
-            >
-              <Calendar className="h-3.5 w-3.5 text-[#B89B72]" />
-              Add to Calendar
-            </button>
-          </div>
 
           {/* Scroll Down */}
           <a
