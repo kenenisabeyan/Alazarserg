@@ -71,30 +71,30 @@ export function HomePage({ onNavigate, onOpenRsvp, onShowToast }) {
         {/* 3D Animated Flanking Celebrity Loved Portraits */}
         <Side3DPortraits mouseOffset={mouseOffset} />
 
-        <div className="relative z-20 mx-auto max-w-2xl px-4 text-center">
+        <div className="relative z-20 mx-auto max-w-[190px] xs:max-w-xs sm:max-w-xl md:max-w-2xl px-2 sm:px-4 text-center">
           {/* Couple Display Name */}
           <h1
-            className="font-serif text-5xl font-light tracking-[0.06em] text-[#1F1D1B] sm:text-7xl md:text-[5.5rem] drop-shadow-sm"
-            style={{ lineHeight: 1.05 }}
+            className="font-serif text-3xl xs:text-4xl sm:text-7xl md:text-[5.5rem] font-light tracking-[0.04em] sm:tracking-[0.06em] text-[#1F1D1B] drop-shadow-sm"
+            style={{ lineHeight: 1.08 }}
           >
             {WEDDING_CONFIG.couple.groom}
-            <span className="mx-3 inline-block font-script text-5xl text-[#B89B72] sm:text-7xl">
+            <span className="mx-1.5 sm:mx-3 inline-block font-script text-3xl xs:text-4xl sm:text-7xl text-[#B89B72]">
               &amp;
             </span>
             {WEDDING_CONFIG.couple.bride}
           </h1>
 
-          <p className="mt-4 font-serif text-lg italic tracking-wide text-[#5B5248] sm:text-2xl drop-shadow-sm">
+          <p className="mt-2 sm:mt-4 font-serif text-xs sm:text-lg md:text-2xl italic tracking-wide text-[#5B5248] drop-shadow-sm max-w-[190px] xs:max-w-xs sm:max-w-none mx-auto">
             {WEDDING_CONFIG.couple.tagline}
           </p>
 
           {/* Scroll Down */}
           <a
             href="#reveal-date"
-            className="mt-14 inline-flex flex-col items-center gap-1.5 text-[#8A7659] transition hover:text-[#1F1D1B]"
+            className="mt-8 sm:mt-14 inline-flex flex-col items-center gap-1.5 text-[#8A7659] transition hover:text-[#1F1D1B]"
           >
-            <span className="font-serif text-sm italic tracking-wider">Scroll down</span>
-            <ChevronDown className="h-4 w-4 animate-bounce text-[#B89B72]" />
+            <span className="font-serif text-xs sm:text-sm italic tracking-wider">Scroll down</span>
+            <ChevronDown className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-bounce text-[#B89B72]" />
           </a>
         </div>
       </section>
