@@ -3,7 +3,6 @@ import { Sparkles } from 'lucide-react';
 import { EnvelopeIntro } from './components/fx/EnvelopeIntro';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
-import { AudioToggle } from './components/common/AudioToggle';
 import { RsvpModal } from './components/common/RsvpModal';
 import { Toast } from './components/common/Toast';
 import { HomePage } from './pages/HomePage';
@@ -11,7 +10,6 @@ import { TheDayPage } from './pages/TheDayPage';
 import { TravelStayPage } from './pages/TravelStayPage';
 import { GalleryGiftsPage } from './pages/GalleryGiftsPage';
 import { QnAPage } from './pages/QnAPage';
-import { useAmbientAudio } from './hooks/useAmbientAudio';
 import { WEDDING_CONFIG } from './config/weddingConfig';
 
 /**
@@ -22,9 +20,6 @@ export default function App() {
   const [activePage, setActivePage] = useState('Home');
   const [rsvpOpen, setRsvpOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-
-  // Audio Hook
-  const { isPlaying, toggleAudio } = useAmbientAudio();
 
   // Toast notification helper
   const showToast = useCallback((msg) => {
@@ -101,9 +96,6 @@ export default function App() {
 
       {/* Global Footer */}
       <Footer onReplayIntro={handleReplayIntro} />
-
-      {/* Ambient Audio Toggle */}
-      <AudioToggle isPlaying={isPlaying} onToggle={toggleAudio} />
 
       {/* Mobile Sticky RSVP Button */}
       <div className="fixed inset-x-4 bottom-4 z-30 sm:hidden">
