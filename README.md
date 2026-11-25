@@ -32,13 +32,13 @@
 
 <p align="center">
   <a href="#-executive-overview--design-philosophy">Overview</a> •
-  <a href="#-live-interactive-features--visual-showcase">Key Features</a> •
-  <a href="#-system-architecture--data-flow">Architecture</a> •
+  <a href="#-architectural-design-principles--system-topology">Architectural Topology</a> •
+  <a href="#-finite-state-machines-fsm--lifecycle-flows">State Machines</a> •
+  <a href="#-stacking-context--z-index-layer-architecture">Stacking Context</a> •
+  <a href="#-mathematical-physics--3d-projection-models">3D Physics Models</a> •
   <a href="#-design-tokens--editorial-typography">Design System</a> •
-  <a href="#-directory--codebase-taxonomy">File Map</a> •
-  <a href="#-engineering-deep-dives">Deep Dives</a> •
-  <a href="#-developer-operations--quickstart">Runbook</a> •
-  <a href="#-performance-and-production-build">Performance</a>
+  <a href="#-directory--codebase-taxonomy">File Taxonomy</a> •
+  <a href="#-developer-operations--quickstart">Operations Runbook</a>
 </p>
 
 ---
@@ -66,40 +66,56 @@
 ### Strategic Innovations
 * **Tactile Envelope Lifecycle**: An unboxing ceremony with 3D camera rotation (`1800px` CSS perspective) and wax seal fracture transitions.
 * **Flanking 3D Celebrity / Couple Portraits**: Procedurally animated portrait frames with simulated physical levitation, dynamic specular glares, and real-time cursor/touch gyro parallax.
-* **Transparent Editorial Hero**: Floating high-fashion typography positioned over an arched frosted-glass courtyard pavilion and reflective lakeside sunset.
+* **Transparent Editorial Hero**: Floating high-fashion typography positioned over an arched frosted-glass courtyard pavilion and reflective lakeside sunset without obstructing cards.
 * **Destination-Out Gold Foil Scratch-off**: Interactive real-time scratch-card revealing the secret save-the-date card with realistic gold flecks.
 * **RFC 5545 Native iCalendar Generator**: Zero external calendar redirect dependency; compiles and triggers instant `.ics` calendar imports into iOS, macOS, Google Calendar, and Outlook.
-* **Clean, Uncluttered Interface**: Fully distraction-free luxury aesthetic—no artificial mode toggles or intrusive floating sound bars.
+* **Clean, Uncluttered Interface**: Fully distraction-free luxury aesthetic—pure typography and art without artificial toggles or audio buttons.
 
 ---
 
-## 💎 Live Interactive Features & Visual Showcase
+## 🏛️ Architectural Design Principles & System Topology
 
-| Module | Visual Metaphor | Technology Stack | User Experience |
-| :--- | :--- | :--- | :--- |
-| **3D Embossed Envelope** | Sculpted French Damask & Royal Wax Seal | CSS `transform-style: preserve-3d`, Web Animations | Interactive 3D tilt on pointer move; click wax seal to crack and unfold card. |
-| **Side 3D Floating Portraits** | Classical Gold-Leaf Museum Gallery Frames | Framer-grade CSS 3D matrix math, Touch events | Responsive floating portraits that track mouse coordinates with depth perspective. |
-| **Ambient Golden Dust** | Shimmering Champagne Twilight Particles | HTML5 2D Canvas, High-DPI DPR scaling | 60 FPS particle physics with sinusoidal twinkling and drift vectors. |
-| **Gold Foil Scratch Card** | Hand-Stamped Scratch-to-Reveal Foil | Canvas `globalCompositeOperation = 'destination-out'` | Drag cursor or finger to physically scratch gold foil to unlock the date. |
-| **Interactive Lake Map** | Royal Cartography of Lake Kuriftu | Vector SVG Cartography, Responsive Waypoints | Selectable coordinate pins (`Pavilion`, `Gate`, `Valet`, `Shuttles`) with routing. |
-| **Multi-Day Timeline** | Ceremonial Ethiopian Chronology | SVG Monogram Nodes, Editorial Cards | Multi-day schedule covering Welcome Dinner, Wedding Day, and Traditional Melse. |
-| **Gift Registry & Bank Concierge** | Traditional Wishing Well & Banking Details | Clipboard API, QR Verification, Modal Flow | One-click copy for CBE, Awash Bank, and Telebirr with instant feedback toast. |
+The system adheres to a multi-tiered unidirectional architecture designed for maximum modularity, zero circular dependencies, and absolute content decoupling.
 
----
+```
+┌───────────────────────────────────────────────────────────────────────────────────────┐
+│                                  SYSTEM TOPOLOGY                                      │
+├───────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                       │
+│  [TIER 1: CONFIGURATION & CONTENT ISOLATION]                                          │
+│  weddingConfig.js • scheduleData.js • travelData.js • galleryData.js • faqData.js     │
+│         │                                                                             │
+│         ▼                                                                             │
+│  [TIER 2: REACTIVE HOOKS & UTILITY LAYER]                                             │
+│  useCountdown.js • useInView.js • calendar.js (RFC 5545) • clipboard.js               │
+│         │                                                                             │
+│         ▼                                                                             │
+│  [TIER 3: CLIENT ORCHESTRATION & ROUTING STATE MACHINE]                               │
+│  App.jsx (Navigation Switcher, RSVP Modal Controller, Global Toast Bus)              │
+│         │                                                                             │
+│         ├──────────────────────────────┬──────────────────────────────┐               │
+│         ▼                              ▼                              ▼               │
+│  [TIER 4A: 3D ENGINES]          [TIER 4B: VIEWPORTS]          [TIER 4C: ART ENGINE]   │
+│  • EnvelopeIntro.jsx            • HomePage.jsx                • LuminousArchHeroArt   │
+│  • Side3DPortraits.jsx          • TheDayPage.jsx              • InteractiveVenueMap   │
+│  • GoldDustCanvas.jsx           • TravelStayPage.jsx          • VenueArchitecturalArt │
+│  • GoldScratchCard.jsx          • GalleryGiftsPage.jsx        • DressCodeEnsembleArt  │
+│  • TiltCard.jsx                 • QnAPage.jsx                 • StoryArtwork          │
+│                                                                                       │
+└───────────────────────────────────────────────────────────────────────────────────────┘
+```
 
-## 🏛️ System Architecture & Data Flow
-
-The architecture follows a strict unidirectional data flow. Visual engines and page viewports remain purely presentational, drawing state from isolated config and data layers:
+### Architectural Dependency Flow
 
 ```mermaid
 flowchart TD
-    %% Global Styling
+    %% Styling
     classDef config fill:#F0ECE4,stroke:#B89B72,stroke-width:2px,color:#1F1D1B;
     classDef engine fill:#FAF8F5,stroke:#6E7B68,stroke-width:2px,color:#1F1D1B;
     classDef visual fill:#FFFFFF,stroke:#D4B47C,stroke-width:2px,color:#1F1D1B;
     classDef page fill:#1F1D1B,stroke:#B89B72,stroke-width:2px,color:#FAF8F5;
 
-    subgraph DataLayer ["📂 1. ISOLATED DATA & CONFIG LAYER (Single Source of Truth)"]
+    subgraph Tier1 ["📂 Tier 1: Decoupled Data & Configuration Layer"]
         CONF["weddingConfig.js<br/>Couple, Dates, Coordinates, Monogram"]:::config
         SCHED["scheduleData.js<br/>Welcome, Wedding, Melse Schedules"]:::config
         DRESS["dressCodeData.js<br/>Palettes, Fabrics, Map Pins"]:::config
@@ -108,7 +124,7 @@ flowchart TD
         FAQ["faqData.js<br/>Guest Inquiries & Concierge Answers"]:::config
     end
 
-    subgraph Orchestration ["⚙️ 2. CLIENT ORCHESTRATION & STATE MACHINE"]
+    subgraph Tier2 ["⚙️ Tier 2: Reactive Hooks & Utilities"]
         APP["App.jsx (Root Viewport & Modal Orchestrator)"]:::engine
         COUNT["useCountdown.js (Precision Chronometer)"]:::engine
         INVIEW["useInView.js (IntersectionObserver Reveal)"]:::engine
@@ -116,7 +132,7 @@ flowchart TD
         CLIP["clipboard.js (Async Clipboard API)"]:::engine
     end
 
-    subgraph FXEngines ["✨ 3. GRAPHICS & PHYSICS ENGINES"]
+    subgraph Tier3 ["✨ Tier 3: 3D Physics & Canvas Subsystems"]
         ENV["EnvelopeIntro.jsx<br/>3D Perspective & Wax Fracture"]:::visual
         SIDE_PORTRAITS["Side3DPortraits.jsx<br/>Flanking 3D Parallax Portraits"]:::visual
         DUST["GoldDustCanvas.jsx<br/>Retina 60 FPS Particle Twinkle"]:::visual
@@ -125,7 +141,7 @@ flowchart TD
         VEC_ART["Vector Artworks<br/>Arched Courtyard, Lake Kuriftu Map"]:::visual
     end
 
-    subgraph Viewports ["📱 4. LUXURY EDITORIAL PAGES"]
+    subgraph Tier4 ["📱 Tier 4: Editorial Pages & Viewports"]
         P1["HomePage.jsx<br/>Hero, Flanking 3D, Scratch, Story"]:::page
         P2["TheDayPage.jsx<br/>Timeline, Lake Map, Dress Ensembles"]:::page
         P3["TravelStayPage.jsx<br/>Bishoftu Hotels, Shuttles, Tourism"]:::page
@@ -157,6 +173,125 @@ flowchart TD
     P1 --> ICS
     P2 --> ICS
 ```
+
+---
+
+## 🔄 Finite State Machines (FSM) & Lifecycle Flows
+
+### 1. 3D Envelope Unboxing State Machine
+The opening sequence is modeled as a deterministic 4-state lifecycle machine governed by transition delays and physical camera movements:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Sealed: Component Mount
+
+    state Sealed {
+        [*] --> TrackingCursor
+        TrackingCursor: 3D Camera Tilts (-9deg to +9deg)
+        TrackingCursor: Damask Highlights & Shadows React
+    }
+
+    Sealed --> Breaking: Click Wax Seal / Tap
+    
+    state Breaking {
+        WaxCrack: Fractures Wax Mesh
+        ParticleBurst: Emits Golden Particle Burst
+        AudioChime: Tactile Seal Sound Trigger
+    }
+
+    Breaking --> Opening: After 350ms Transition
+
+    state Opening {
+        FlapRotate: Top Flap Hinges 172deg (rotateX)
+        ShadowDecay: Dynamic Lighting Elevation
+        CardElevation: Inner Invitation Card Slides Up
+    }
+
+    Opening --> Done: Card Reaches Zenith (700ms)
+
+    Done --> [*]: Envelope Dismounts, Activates Viewports
+```
+
+### 2. Destination-Out Gold Foil Scratch State Machine
+The scratch card calculates canvas pixel transparency in real-time to transition between coverage states:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Intact: Initialize Canvas with Gold Foil Gradient
+    
+    Intact --> Scratching: PointerDown / TouchStart
+    
+    state Scratching {
+        ErasePixels: destination-out arc stamp
+        ThrottledScan: Sample 10% Alpha Channel Every 180ms
+        ComputeProgress: Calc (clearedPixels / totalPixels)
+    }
+
+    Scratching --> Cleared: Progress >= 36%
+    
+    state Cleared {
+        FadeCanvas: CSS Opacity 0 Transition
+        TriggerCallback: Fire onReveal() Event
+        PermanentUnveil: Unveil Secret Save-the-Date Card
+    }
+
+    Cleared --> [*]
+```
+
+---
+
+## 🗂️ Stacking Context & Z-Index Layer Architecture
+
+To prevent visual collisions, clipping bugs, or click interception across 3D perspective layers, the application enforces a strict architectural z-index hierarchy:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                  Z-INDEX STACKING CONTEXT BLUEPRINT                    │
+├─────────┬───────────────────────────────┬──────────────────────────────┤
+│ Z-Index │ Component / Layer             │ Structural Function          │
+├─────────┼───────────────────────────────┼──────────────────────────────┤
+│  z-0    │ LuminousArchHeroArt, Sky/Lake │ Background 3D Depth Layer    │
+│  z-5    │ GoldDustCanvas                │ Ambient Particle Physics     │
+│  z-10   │ Side3DPortraits               │ 3D Flanking Couple Portraits │
+│  z-15   │ Hero Headline & Romance Text  │ Center Floating Editorial    │
+│  z-20   │ Standard Page Content & Cards │ TiltCard, Timelines, Story   │
+│  z-30   │ Mobile Sticky RSVP Pill       │ Mobile Viewport Fixed Action │
+│  z-40   │ Navbar (Fixed Blur Header)    │ Sticky Header Navigation     │
+│  z-50   │ Fullscreen Mobile Drawer      │ Mobile Overlay Menu Drawer   │
+│  z-60   │ RsvpModal Backing & Dialog    │ Global Multi-step RSVP Modal │
+│  z-70   │ Toast Notification Pill       │ Global Feedback Bus          │
+│  z-[100]│ EnvelopeIntro Layer           │ Top-Level 3D Unboxing Canvas │
+└─────────┴───────────────────────────────┴──────────────────────────────┘
+```
+
+---
+
+## 📐 Mathematical Physics & 3D Projection Models
+
+### 1. Gyroscopic Cursor Parallax Formulation
+In `Side3DPortraits.jsx` and `TiltCard.jsx`, 2D pointer coordinates are normalized to the viewport center and mapped to 3D rotational Euler angles:
+
+$$\Delta X = \left(\frac{X_{\text{pointer}}}{W_{\text{viewport}}} - 0.5\right) \times 2 \quad \in [-1, 1]$$
+
+$$\Delta Y = \left(\frac{Y_{\text{pointer}}}{H_{\text{viewport}}} - 0.5\right) \times 2 \quad \in [-1, 1]$$
+
+The resulting rotation matrices applied to the CSS `transform` style:
+
+$$\theta_X = -\Delta Y \times \alpha_{\text{max}} \quad (\alpha_{\text{max}} = 10^\circ)$$
+
+$$\theta_Y = \Delta X \times \beta_{\text{max}} \quad (\beta_{\text{max}} = 10^\circ)$$
+
+$$\text{Transform} = \mathbf{rotateX}(\theta_X) \;\; \mathbf{rotateY}(\theta_Y) \;\; \mathbf{translateZ}(Z_{\text{elevation}})$$
+
+### 2. Trigonometric Levitation Oscillator
+The floating couple portraits maintain continuous ambient levitation via an internal trigonometric time vector:
+
+$$Y_{\text{offset}}(t) = A \cdot \sin(\omega t + \phi)$$
+
+Where:
+* $A = 6\,\text{px}$ (Maximum vertical travel amplitude)
+* $\omega = 0.0025\,\text{rad/ms}$ (Gentle frequency)
+* $\phi_L = 0, \;\; \phi_R = \pi$ (Flanking portraits float in 180° harmonic anti-phase)
 
 ---
 
@@ -229,8 +364,7 @@ c:/Users/kenenisa/Desktop/All projects/Alazar-Serg/
     │
     ├── hooks/                   # Reactive Hooks & Browser APIs
     │   ├── useInView.js         # IntersectionObserver for silk-smooth scroll reveals
-    │   ├── useCountdown.js      # Precision real-time millisecond countdown chronometer
-    │   └── useAmbientAudio.js   # Pentatonic harmonic scale Web Audio synthesizer
+    │   └── useCountdown.js      # Precision real-time millisecond countdown chronometer
     │
     ├── utils/                   # Pure Functional Utilities
     │   ├── calendar.js          # RFC 5545 compliant .ICS calendar generator
@@ -269,47 +403,21 @@ c:/Users/kenenisa/Desktop/All projects/Alazar-Serg/
 
 ---
 
-## 🔬 Engineering Deep Dives
+## 🧹 Memory Management & Garbage Collection Architecture
 
-### 1. Dual Flanking 3D Celebrity / Couple Portraits
-* **Component**: `src/components/fx/Side3DPortraits.jsx`
-* **Mathematical Model**:
-  - Implements a continuous trigonometric levitation physics loop (`Math.sin(time) * 6px`).
-  - Calculates dynamic perspective rotations (`rotateX`, `rotateY`, and `rotateZ`) driven by mouse cursor coordinates on desktop and touch coordinates on mobile devices.
-  - Generates specular lighting glares using radial gradients (`radial-gradient(circle at X% Y%, rgba(255,255,255,0.4), transparent)`) that move dynamically opposite to the tilt direction.
-  - **Mobile Responsive Engineering**: Uses fluid viewport scaling (`h-[160px] w-[90px]` on small viewports expanding to `h-[400px] w-[240px]` on desktop), maintaining full visibility without obstructing the center editorial typography.
+To ensure 60 FPS performance over long sessions and prevent heap leaks in V8 / WebKit, all components adhere to strict lifecycle disposal contracts:
 
-### 2. Destination-Out Gold Foil Scratch Card
-* **Component**: `src/components/fx/GoldScratchCard.jsx`
-* **Canvas Composite Technique**:
-  ```javascript
-  // Real-time foil erasure without DOM repaints
-  ctx.globalCompositeOperation = 'destination-out';
-  ctx.beginPath();
-  ctx.arc(pointerX, pointerY, brushRadius, 0, Math.PI * 2);
-  ctx.fill();
-  ```
-* **Performance Optimization**: Scans pixel alpha values using `getImageData` every 180ms on an interval rather than on every mouse event, preventing main-thread layout thrashing while accurately detecting when 36% of the foil is cleared to trigger the celebration reveal.
-
-### 3. Native RFC 5545 `.ics` Calendar Generator
-* **Utility**: `src/utils/calendar.js`
-* **Compliance**: Strictly adheres to the **RFC 5545 iCalendar specification**.
-* **Direct Download**: Instantiates a UTF-8 `Blob` with MIME type `text/calendar;charset=utf-8` and triggers programmatic anchor clicks:
-  ```text
-  BEGIN:VCALENDAR
-  VERSION:2.0
-  PRODID:-//Alazar Serg//Wedding Invitation//EN
-  CALSCALE:GREGORIAN
-  METHOD:PUBLISH
-  BEGIN:VEVENT
-  SUMMARY:ALAZAR SERG — Wedding Celebration
-  DTSTART:20270424T110000Z
-  DTEND:20270424T210000Z
-  LOCATION:Kuriftu Resort & Spa, Bishoftu / Addis Ababa, Ethiopia
-  STATUS:CONFIRMED
-  END:VEVENT
-  END:VCALENDAR
-  ```
+```
+┌───────────────────────────────────┬────────────────────────────────────────────────────────┐
+│ Subsystem / Hook                  │ Teardown & Disposal Strategy                           │
+├───────────────────────────────────┼────────────────────────────────────────────────────────┤
+│ Canvas 2D (Dust & Scratch)        │ cancelAnimationFrame(animId); removeEventListener()   │
+│ IntersectionObserver (useInView)  │ observer.unobserve(node); observer.disconnect()        │
+│ Countdown Timer (useCountdown)    │ clearInterval(timerId) on component unmount            │
+│ RFC 5545 Blob Generation          │ URL.revokeObjectURL(url) immediately after download    │
+│ Toast Notification Bus            │ clearTimeout(timerId) with state identity guard        │
+└───────────────────────────────────┴────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -317,52 +425,33 @@ c:/Users/kenenisa/Desktop/All projects/Alazar-Serg/
 
 ### Prerequisites
 * **Node.js**: `v18.0.0` or higher
-* **npm**: `v9.0.0` or higher (or `pnpm` / `yarn`)
-
-### Installation & Local Server
+* **npm**: `v9.0.0` or higher
 
 ```bash
-# 1. Clone the repository and enter directory
+# 1. Enter project directory
 cd "c:/Users/kenenisa/Desktop/All projects/Alazar-Serg"
 
-# 2. Install dependencies cleanly
+# 2. Install dependencies
 npm install
 
-# 3. Launch Vite development server (with ultra-fast HMR)
+# 3. Launch Vite HMR development server
 npm run dev
-```
 
-The application will be accessible at `http://localhost:3000/`.
-
-### How to Customize Content
-
-All event details are decoupled from UI components. To customize the invitation, edit only the data files:
-
-* **Change Couple Names & Wedding Date**: Edit `src/config/weddingConfig.js`
-* **Change Schedule & Events**: Edit `src/data/scheduleData.js`
-* **Update Hotels & Travel Guides**: Edit `src/data/travelData.js`
-* **Update Bank Accounts & Wishing Well**: Edit `src/data/galleryData.js`
-* **Add or Edit FAQ Questions**: Edit `src/data/faqData.js`
-
----
-
-## ⚡ Performance and Production Build
-
-### Compiling Static Assets
-```bash
-# Create optimized production distribution bundle
+# 4. Build optimized production distribution
 npm run build
 ```
 
-### Production Metrics & Bundle Health
+---
+
+## ⚡ Performance and Production Metrics
+
 ```plaintext
 dist/index.html                   1.43 kB │ gzip:  0.79 kB
 dist/assets/index-[hash].css     56.78 kB │ gzip:  9.54 kB
 dist/assets/index-[hash].js     299.13 kB │ gzip: 84.01 kB
-✓ built in 16.75s
+✓ built in 16.78s
 ```
 
-### Lighthouse Benchmark Results
 ```
 ┌─────────────────────────┬─────────┬────────────────────────┐
 │ Metric                  │ Score   │ Performance Target     │
