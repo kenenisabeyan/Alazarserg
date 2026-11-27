@@ -8,12 +8,12 @@ import React from 'react';
 export function LuminousArchHeroArt({ mouseOffset = { x: 0, y: 0 } }) {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden select-none">
-      {/* Sky & Radiant Warm Horizon Gradient */}
+      {/* Sky & Radiant Warm Horizon Gradient - Translucent to frame couple photo */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 38%, #FFFDF5 0%, #FAEDD6 32%, #EED9BA 65%, #E5CCA7 88%, #D8BE96 100%)'
+            'radial-gradient(ellipse at 50% 38%, rgba(212, 180, 124, 0.18) 0%, rgba(31, 29, 27, 0.45) 55%, rgba(18, 16, 14, 0.78) 100%)'
         }}
       />
 
