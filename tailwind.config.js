@@ -32,8 +32,13 @@ export default {
         'sway-delayed': 'swaySlow 6.2s ease-in-out 1.2s infinite',
         'float-gentle': 'floatGentle 4.2s ease-in-out infinite',
         'fade-in': 'fadeIn 0.35s ease-out forwards',
+        'marquee': 'marquee 28s linear infinite',
       },
       keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
         pulseSlow: {
           '0%, 100%': { opacity: '0.55', transform: 'scale(0.96)' },
           '50%': { opacity: '0.95', transform: 'scale(1.06)' },
