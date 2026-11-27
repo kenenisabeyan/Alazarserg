@@ -508,10 +508,35 @@ export function HomePage({ onOpenRsvp }) {
       {/* ================================================================
           7. CAPTURED MOMENTS / OUR GALLERY (#gallery, VIDEO 00:30 - 00:39)
          ================================================================ */}
+      {/* Seamless Horizontal Photo Marquee Ribbon (Matching Video 00:30 - 00:34) */}
+      <div className="relative w-full overflow-hidden border-t border-b border-[#1F1D1B]/10 bg-[#F0ECE4]/60 py-4">
+        <div className="flex w-max animate-marquee items-center gap-4 hover:[animation-play-state:paused]">
+          {[...galleryPhotos, ...galleryPhotos, ...galleryPhotos].map((photo, idx) => (
+            <button
+              key={`${photo.id}-${idx}`}
+              type="button"
+              onClick={() => setActivePhoto(photo)}
+              className="group relative h-40 w-32 sm:h-52 sm:w-40 flex-shrink-0 overflow-hidden rounded-xl border border-[#B89B72]/30 bg-[#FAF8F5] shadow-xs transition hover:scale-105 hover:border-[#B89B72] hover:shadow-md focus:outline-none"
+            >
+              <img
+                src={photo.src}
+                alt={photo.title}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity group-hover:opacity-100 flex items-center justify-center">
+                <span className="rounded-full bg-white/80 px-2.5 py-1 font-sans text-[9px] uppercase tracking-wider text-[#1F1D1B]">
+                  View
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <section
         id="gallery"
         ref={galleryRef}
-        className={`relative border-t border-[#1F1D1B]/10 bg-[#FAF8F5] px-5 py-24 transition-all duration-1000 sm:py-28 ${
+        className={`relative bg-[#FAF8F5] px-5 py-20 transition-all duration-1000 sm:py-24 ${
           galleryVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}
       >
