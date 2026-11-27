@@ -23,7 +23,7 @@ export function LuminousArchHeroArt({ mouseOffset = { x: 0, y: 0 } }) {
       <svg
         viewBox="0 0 800 900"
         preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-0 h-full w-full transition-transform duration-500 ease-out"
+        className="absolute inset-0 h-full w-full opacity-30 transition-transform duration-500 ease-out"
         style={{
           transform: `translate3d(${mouseOffset.x * -12}px, ${mouseOffset.y * -9}px, 0) scale(1.05)`
         }}
@@ -181,11 +181,11 @@ export function LuminousArchHeroArt({ mouseOffset = { x: 0, y: 0 } }) {
         }}
       >
         <defs>
-          {/* Arch Paper / Marble Relief */}
+          {/* Arch Paper / Marble Relief - Translucent glass so couple hero photo is panoramic */}
           <linearGradient id="foreArchMarble" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FFFDF9" stopOpacity="0.98" />
-            <stop offset="50%" stopColor="#F5EBDD" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#E5D3B8" stopOpacity="0.95" />
+            <stop offset="0%" stopColor="#2E2822" stopOpacity="0.45" />
+            <stop offset="50%" stopColor="#241F1A" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#181410" stopOpacity="0.75" />
           </linearGradient>
 
           {/* Deep Sculpted Gold Borders */}
