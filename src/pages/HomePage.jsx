@@ -83,7 +83,7 @@ function VintageOrnateFrame({ children }) {
 /**
  * Master Home Page - Exactly Styled to Match Video Reference
  */
-export function HomePage({ onOpenRsvp }) {
+export function HomePage({ onNavigate, onOpenRsvp, onShowToast }) {
   // Parallax mouse tracking
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
@@ -105,18 +105,43 @@ export function HomePage({ onOpenRsvp }) {
   const [storyRef, storyVisible] = useInView();
   const [galleryRef, galleryVisible] = useInView();
 
-  const handleHeroMouseMove = (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 2;
-    const y = (e.clientY / window.innerHeight - 0.5) * 2;
-    setMouseOffset({ x, y });
-  };
-
   const galleryPhotos = [
     { id: 1, src: heroPhoto, title: 'Forever Promised', category: 'Portraits' },
     { id: 2, src: couplePortrait, title: 'Ceremonial Elegance', category: 'The Ceremony' },
     { id: 3, src: momentPhoto3, title: 'Golden Hour Reflections', category: 'Lake Kuriftu' },
     { id: 4, src: momentPhoto4, title: 'Timeless Romance', category: 'Celebration' }
   ];
+
+  const handlePrevPhoto = useCallback(() => {
+    if (!activePhoto) return;
+    const currentIndex = galleryPhotos.findIndex((p) => p.id === activePhoto.id);
+    const prevIndex = (currentIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+    setActivePhoto(galleryPhotos[prevIndex]);
+  }, [activePhoto, galleryPhotos]);
+
+  const handleNextPhoto = useCallback(() => {
+    if (!activePhoto) return;
+    const currentIndex = galleryPhotos.findIndex((p) => p.id === activePhoto.id);
+    const nextIndex = (currentIndex + 1) % galleryPhotos.length;
+    setActivePhoto(galleryPhotos[nextIndex]);
+  }, [activePhoto, galleryPhotos]);
+
+  useEffect(() => {
+    if (!activePhoto) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActivePhoto(null);
+      if (e.key === 'ArrowLeft') handlePrevPhoto();
+      if (e.key === 'ArrowRight') handleNextPhoto();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activePhoto, handlePrevPhoto, handleNextPhoto]);
+
+  const handleHeroMouseMove = (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    setMouseOffset({ x, y });
+  };
 
   return (
     <main className="animate-fade-in bg-[#FAF8F5]">
