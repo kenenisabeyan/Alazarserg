@@ -474,17 +474,30 @@ export function HomePage({ onNavigate, onOpenRsvp, onShowToast }) {
                 </div>
               </div>
 
-              {/* Action Button: GET DIRECTIONS */}
-              <div className="pt-2">
+              {/* Action Buttons: GET DIRECTIONS + ADD TO CALENDAR */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
                   href={WEDDING_CONFIG.venue.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#4A5A43] px-8 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.24em] text-white shadow-md transition hover:bg-[#3B4835] hover:scale-105"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#4A5A43] px-7 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.24em] text-white shadow-md transition hover:bg-[#3B4835] hover:scale-105"
                 >
                   Get Directions
                   <ExternalLink className="h-3.5 w-3.5" />
                 </a>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (downloadCalendarInvite()) {
+                      onShowToast?.(`${WEDDING_CONFIG.couple.names} wedding added to calendar!`);
+                    }
+                  }}
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#B89B72]/60 bg-[#FAF8F5] px-7 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.24em] text-[#1F1D1B] shadow-xs transition hover:bg-[#F0ECE4] hover:border-[#1F1D1B]"
+                >
+                  <Calendar className="h-3.5 w-3.5 text-[#B89B72]" />
+                  Add to Calendar
+                </button>
               </div>
             </div>
           </div>
