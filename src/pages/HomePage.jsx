@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Calendar,
   MapPin,
   Sparkles,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   ArrowRight,
   Star,
@@ -19,6 +21,7 @@ import { GoldScratchCard } from '../components/fx/GoldScratchCard';
 import { Side3DPortraits } from '../components/fx/Side3DPortraits';
 import { useInView } from '../hooks/useInView';
 import { useCountdown } from '../hooks/useCountdown';
+import { downloadCalendarInvite } from '../utils/calendar';
 import { WEDDING_CONFIG } from '../config/weddingConfig';
 import { STORY_MILESTONES } from '../data/storyData';
 
